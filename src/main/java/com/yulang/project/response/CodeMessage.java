@@ -12,6 +12,7 @@ public class CodeMessage {
     public static final CodeMessage PARAMS_ERROR=new CodeMessage("100001","参数异常");
     public static final CodeMessage USER_NOT_EXITS=new CodeMessage("200000","用户不存在");
     public static final CodeMessage USER_PASSWORD_ERROR=new CodeMessage("200001","密码错误");
+    public static final CodeMessage USER_EXITES=new CodeMessage("300000","用户已经存在");
     public String getCode() {
         return code;
     }

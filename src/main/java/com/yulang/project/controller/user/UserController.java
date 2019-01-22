@@ -6,6 +6,7 @@ import com.yulang.project.response.CodeMessage;
 import com.yulang.project.service.UserService;
 import com.yulang.project.util.Md5Util;
 import com.yulang.project.vo.LoginVo;
+import com.yulang.project.vo.RegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,13 @@ public class UserController {
     @RequestMapping("/user")
     public User getUserById(Integer pkid){
         redisTemplate.opsForValue().set("liming","999999999999999");
-        return userService.getUserByUserId(pkid);
+        User user=new User();
+        try {
+            user = userService.getUserByUserId(pkid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @RequestMapping("/to_login")
@@ -42,8 +49,30 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return BaseResponse.erro(CodeMessage.PARAMS_ERROR);
         }
+        BaseResponse b=BaseResponse.erro(CodeMessage.ERROR);
         String password = loginVo.getPassword();
-        return userService.login(loginVo,response);
+        try {
+            b= userService.login(loginVo,response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+    @RequestMapping("/to_register")
+    public String to_register(){
+        return "zhuce";
+    }
+    @RequestMapping("/do_register")
+    @ResponseBody
+    public BaseResponse do_register(@Validated RegisterVo registerVo){
+        BaseResponse baseResponse=BaseResponse.erro(CodeMessage.ERROR);
+        try {
+            baseResponse=userService.register(registerVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return baseResponse;
     }
 
 }
