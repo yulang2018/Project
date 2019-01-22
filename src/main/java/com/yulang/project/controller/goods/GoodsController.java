@@ -19,7 +19,7 @@ public class GoodsController {
     @RequestMapping("/to_list")
     public String list(Model model , User user){
         List list = goodService.getGoodsList();
-        model.addAttribute("goodList",list);
+        model.addAttribute("goodsList",list);
         return "goods_list";
     }
 
