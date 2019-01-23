@@ -19,6 +19,22 @@
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </head>
 <body>
+<div style="height: 200px;" id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div th:each="goods,goodsStat : ${goodsList}" th:if="${goodsStat.index eq 1}" class="item active">
+            <img th:src="@{${goods['goods_img']}}"/>
+        </div>
+        <div th:each="goods,goodsStat : ${goodsList}" th:if="${goodsStat.index ne 1}" class="item">
+            <img th:src="@{${goods['goods_img']}}"/>
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev"> <span _ngcontent-c3="" aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a>
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="next">&rsaquo;</a>
+</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">秒杀商品列表</div>
